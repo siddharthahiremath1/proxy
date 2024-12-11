@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Smash Bros Ultimate</title>
+    <style> 
+    #cool { 
+        border-radius: 10px; 
+        border: 2px solid purple; 
+        color: white; 
+        transition: .2s;
+        padding: 21px;  
+        background-color: rgba(218, 0, 182, 0.184); 
+        z-index: 999999px; 
+        cursor: pointer; 
+        position: absolute; 
+        top: 60%;
+        left: 50%;
+        transform: translateX(-50%); 
+        font-size: 20px; 
+    } 
+    #cool:hover {
+        background-color: purple; 
+        transition: .2s; 
+        padding: 25px; 
+    }
+
+    </style> 
+</head>
+<body style="background-image: url(/static/FD.png);height:650px;background-position: center;background-repeat: no-repeat;background-size: cover;">
+    <div id="opa"></div>
+    
+    <img id="mario" src="/static/MARIO.png" class="char">
+    <img id="sephiroth" src="/static/SEPHIROTH.png" class="char">
+    <img id="link" src="/static//LINK.png" class="char">
+    <img id="parallelogram" src="/static/PARALLELOGRAM.png">
+    <input type="text" id="username" class="o" placeholder="Username" >
+
+    <button id="cool" onclick="updatehehe()">Enter the game</button>
+
+    <div id="pets"></div>
+    
+
+</body>
+<style>
+    .char {
+        opacity: 70%;
+        transition: .2s; 
+    }
+    .char:hover {
+        opacity: 100%; 
+        transition: .2s;
+    }
+    #opa { 
+        opacity: 80%;
+        z-index: -10; 
+        background-color: black;
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100vw; 
+        height: 100vh; 
+    }
+    #mario {
+        position:absolute;
+        height:250px;
+        width:250px;
+        top:5%;
+        left:10%;
+        transform:translate(80%, 55%);
+        cursor: pointer; 
+
+    }
+
+    #sephiroth {
+        position:absolute;
+        height:250px;
+        width:250px;
+        top:5%;
+        left:30%;
+        transform:translate(85%, 55%);
+        cursor: pointer;
+    }
+    .bigger {
+        height: 300px !important;
+        width: 300px !important;
+        transform: translate(77%, 37%) !important;
+        transition: .2s; 
+    }
+    .centered {
+        transform: translate(85%, 45%) !important; 
+        transition: .2s; 
+    }
+    #link {
+        position:absolute;
+        height:250px;
+        width:250px;
+        left:50%;
+        top:5%;
+        transform:translate(80%, 55%);
+        cursor: pointer; 
+        transition: .2s; 
+    }
+
+    #username {
+        background-color: #12143a;
+        font-size: large;
+        top:9.5%;
+        position:absolute;
+        left:45%;
+        color:rgb(162, 30, 98);
+        outline:none;
+        border:none;
+        border-radius: 10px; 
+    }
+    
+    #parallelogram {
+        fill-opacity: 0%;
+        position: absolute;
+        height:65px;
+        width:385px;
+        left:39.5%  ;
+        top:7%;
+    }
+</style>
+
+
+<script>
+    var socket = io();
+    function updatehehe(){
+        localStorage.setItem("username", document.getElementById("username").value); 
+        socket.emit("message", document.getElementById("username").value);
+        document.location = "https://jbsite.madum.cc/coolness"; 
+    }
+    const mario = document.getElementById("mario");
+    const link = document.getElementById("link");
+    const sephiroth = document.getElementById("sephiroth");
+    const username = document.getElementById("name");
+    var linkselected = false; 
+    var sephirothselected = false; 
+    var marioselected = false; 
+    mario.addEventListener("click", function() {
+        if (marioselected) {
+            marioselected = false;
+            mario.setAttribute("class", "char");
+        link.setAttribute("class", "char"); 
+        sephiroth.setAttribute("class", "char"); 
+        } else {
+        mario.setAttribute("class", "char bigger");
+        link.setAttribute("class", "char centered"); 
+        sephiroth.setAttribute("class", "char centered"); 
+        console.log("working"); 
+        marioselected = true; 
+        } 
+        localStorage.setItem("mario", marioselected);
+    });
+    sephiroth.addEventListener("click", function() {
+        if (sephirothselected) {
+            sephirothselected = false;
+            sephiroth.setAttribute("class", "char");
+        link.setAttribute("class", "char"); 
+        mario.setAttribute("class", "char"); 
+        } else {
+        sephiroth.setAttribute("class", "char bigger");
+        mario.setAttribute("class", "char centered"); 
+        link.setAttribute("class", "char centered"); 
+        console.log("working"); 
+        sephirothselected = true; 
+        } 
+        localStorage.setItem("sephiroth", sephirothselected);
+    });
+    link.addEventListener("click", function() {
+        if (linkselected) {
+            linkselected = false;
+            link.setAttribute("class", "char");
+        sephiroth.setAttribute("class", "char"); 
+        mario.setAttribute("class", "char"); 
+        } else {
+        link.setAttribute("class", "char bigger");
+        sephiroth.setAttribute("class", "char centered"); 
+        mario.setAttribute("class", "char centered"); 
+        console.log("working"); 
+        linkselected = true; 
+        } 
+        localStorage.setItem("link", linkselected);
+    });
+
+    
+
+</script>
+</html>
